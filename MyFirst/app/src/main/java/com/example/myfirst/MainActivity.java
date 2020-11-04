@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail, editTextPassword;
     private Button Signin;
     private Button continue_as_ngo;
+
+    private CheckBox checkbox;
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -52,6 +58,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         continue_as_ngo = (Button) findViewById(R.id.ngo_Signin);
         continue_as_ngo.setOnClickListener(this);
+
+        checkbox = findViewById(R.id.Show);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
     }
 
 
@@ -112,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(user.isEmailVerified()){
                         // Redirect to  user profile
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(MainActivity.this, user_Main_Page.class));
                     }else{
                         user.sendEmailVerification();
                         Toast.makeText(MainActivity.this, "Check your Email to verify your account", Toast.LENGTH_LONG).show();

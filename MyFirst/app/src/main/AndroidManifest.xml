@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ngoForgotPassword"></activity>
+        <activity android:name=".user_request"></activity>
+        <activity android:name=".ngo_setting" />
+        <activity android:name=".user_setting" />
+        <activity android:name=".ngo_Main_Page" />
+        <activity android:name=".user_Main_Page" />
+        <activity android:name=".ngoForgotPassword" />
         <activity android:name=".ngoProfileActivity" />
         <activity android:name=".ngo_registration" />
         <activity android:name=".ngo_signup" />

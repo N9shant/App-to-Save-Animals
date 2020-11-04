@@ -19,7 +19,7 @@
         android:id="@+id/AppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Animal Home"
+        android:text="AnimalHome"
         android:textSize="50sp"
         android:textColor="#FF9100"
         android:textAlignment="center"
@@ -63,27 +63,42 @@
         android:id="@+id/Email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
-        android:hint="Email Address"
+        android:hint=" Email Address"
+        android:drawableStart="@drawable/custom_email_input"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Desc"/>
+        app:layout_constraintTop_toBottomOf="@+id/Desc"
+        android:drawableLeft="@drawable/custom_email_input" />
 
     <EditText
         android:id="@+id/Password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint=" Password"
+        android:drawableStart="@drawable/custom_pass_input"
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email"/>
+        app:layout_constraintTop_toBottomOf="@+id/Email"
+        android:drawableLeft="@drawable/custom_pass_input" />
+
+    <CheckBox
+        android:id="@+id/Show"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Show Password"
+        android:buttonTint="@android:color/black"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Password"/>
 
     <Button
         android:id="@+id/Signin"
@@ -95,7 +110,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"/>
+        app:layout_constraintTop_toBottomOf="@+id/Show"/>
 
     <TextView
         android:id="@+id/ForgotPassword"
@@ -104,6 +119,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="220dp"
         android:text="Forgot Password?"
+        android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -115,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="New User? Sign up"
+        android:textColor="#000000"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textAlignment="center"

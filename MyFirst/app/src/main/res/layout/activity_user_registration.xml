@@ -11,7 +11,7 @@
         android:id="@+id/AppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Animal Home"
+        android:text="AnimalHome"
         android:textSize="50sp"
         android:textColor="#FF9100"
         android:textAlignment="center"
@@ -41,7 +41,7 @@
         android:id="@+id/Fname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
@@ -54,7 +54,7 @@
         android:id="@+id/Lname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Last Name"
         android:inputType="textPersonName"
@@ -67,7 +67,7 @@
         android:id="@+id/Email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
@@ -80,7 +80,7 @@
         android:id="@+id/Password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -89,18 +89,43 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Email"/>
 
+
+    <EditText
+        android:id="@+id/conf_Password"
+        android:layout_width="305dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Password" />
+
+    <CheckBox
+        android:id="@+id/Show"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Show Password"
+        android:buttonTint="@android:color/black"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conf_Password"/>
+
     <EditText
         android:id="@+id/Mobile"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Mobile No."
         android:inputType="phone"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"/>
+        app:layout_constraintTop_toBottomOf="@+id/Show"/>
 
     <Button
         android:id="@+id/Register"

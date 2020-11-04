@@ -41,7 +41,7 @@
         android:id="@+id/NGOName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Name Of Organization"
         android:backgroundTint="#000000"
@@ -130,6 +130,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Reg_Password"/>
 
+    <CheckBox
+        android:id="@+id/Show"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Show Password"
+        android:buttonTint="@android:color/black"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Confirm_Password"/>
+
     <Button
         android:id="@+id/SignUp"
         android:layout_width="wrap_content"
@@ -140,7 +151,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Confirm_Password"/>
+        app:layout_constraintTop_toBottomOf="@+id/Show"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

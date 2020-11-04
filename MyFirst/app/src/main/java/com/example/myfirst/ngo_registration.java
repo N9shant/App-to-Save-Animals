@@ -9,9 +9,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -35,6 +39,8 @@ public class ngo_registration extends AppCompatActivity implements View.OnClickL
     private EditText editTextngoname, editTextDateField, editTextEmail, editTextPassword, editTextConfirmPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+
+    private CheckBox checkbox;
 
     DatePickerDialog.OnDateSetListener listener;
 
@@ -78,6 +84,21 @@ public class ngo_registration extends AppCompatActivity implements View.OnClickL
                     }
                 }, year, month, day);
                 datePickerDialog.show();
+            }
+        });
+
+        checkbox = findViewById(R.id.Show);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    editTextConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    editTextConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }

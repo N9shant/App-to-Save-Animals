@@ -55,27 +55,42 @@
         android:id="@+id/ngoEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Organization Email "
+        android:drawableStart="@drawable/custom_email_input"
+        android:hint=" Organization Email "
         android:inputType="textEmailAddress"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ngo_login"/>
+        app:layout_constraintTop_toBottomOf="@+id/ngo_login"
+        android:drawableLeft="@drawable/custom_email_input" />
 
     <EditText
         android:id="@+id/ngoPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Password"
+        android:drawableStart="@drawable/custom_pass_input"
+        android:hint=" Password"
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ngoEmail"/>
+        app:layout_constraintTop_toBottomOf="@+id/ngoEmail"
+        android:drawableLeft="@drawable/custom_pass_input" />
+
+    <CheckBox
+        android:id="@+id/Show"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Show Password"
+        android:buttonTint="@android:color/black"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ngoPassword"/>
 
     <Button
         android:id="@+id/Signin"
@@ -87,7 +102,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ngoPassword"/>
+        app:layout_constraintTop_toBottomOf="@+id/Show"/>
 
     <TextView
         android:id="@+id/ForgotPassword"
@@ -96,6 +111,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginLeft="210dp"
         android:text="Forgot Password?"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -107,13 +123,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="New NGO? Sign up"
-        android:textStyle="italic"
-        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/ForgotPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/user_Signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Continue as USER"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ngo_Signup"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,23 +29,23 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String userID;
 
-    private Button Logout;
+    //private Button Logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Logout = (Button) findViewById(R.id.Logout);
-
-        Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut(); // Firebase function signout
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-                finish(); // To delete the final activity
-            }
-        });
+//        Logout = (Button) findViewById(R.id.Logout);
+//
+//        Logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FirebaseAuth.getInstance().signOut(); // Firebase function signout
+//                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+//                finish(); // To delete the final activity
+//            }
+//        });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -77,6 +79,38 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ProfileActivity.this, "Something wrong happened!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
+        BottomNavigationView bottomNavigationView =findViewById(R.id.user_bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.user_bottom_profile);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.user_bottom_profile:
+                        return true;
+
+                    case R.id.user_bottom_home:
+                        startActivity(new Intent(getApplicationContext(), user_Main_Page.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.user_bottom_queue:
+                        startActivity(new Intent(getApplicationContext(), user_request.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.user_bottom_setting:
+                        startActivity(new Intent(getApplicationContext(), user_setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
             }
         });
 

@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,8 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class User_registration extends AppCompatActivity implements View.OnClickListener {
 
     private TextView AppName, Register;
-    private EditText editTextFname, editTextLname, editTextEmail, editTextPassword, editTextMobile;
+    private EditText editTextFname, editTextLname, editTextEmail, editTextPassword, editTextConfirmPassword, editTextMobile;
     private ProgressBar progressBar;
+
+    private CheckBox checkbox;
 
     private FirebaseAuth mAuth;
 
@@ -45,9 +51,25 @@ public class User_registration extends AppCompatActivity implements View.OnClick
         editTextLname = (EditText) findViewById(R.id.Lname);
         editTextEmail = (EditText) findViewById(R.id.Email);
         editTextPassword = (EditText) findViewById(R.id.Password);
+        editTextConfirmPassword = (EditText) findViewById(R.id.conf_Password);
         editTextMobile = (EditText) findViewById(R.id.Mobile);
 
+        checkbox = findViewById(R.id.Show);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    editTextConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    editTextConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
     }
 
     @Override
@@ -67,6 +89,7 @@ public class User_registration extends AppCompatActivity implements View.OnClick
         final String Lname = editTextLname.getText().toString().trim();
         final String Email = editTextEmail.getText().toString().trim();
         final String Password = editTextPassword.getText().toString().trim();
+        final String conf_Password = editTextConfirmPassword.getText().toString().trim();
         final String Mobile = editTextMobile.getText().toString().trim();
 
         if(Fname.isEmpty()) {
@@ -102,14 +125,30 @@ public class User_registration extends AppCompatActivity implements View.OnClick
             return;
         }
 
+        if(conf_Password.isEmpty()) {
+            editTextConfirmPassword.setError("Confirm Password Required");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+        if(conf_Password.length()<6) {
+            editTextConfirmPassword.setError("Minimum Confirm Password Length should be 6 character");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+        if(!(conf_Password.equals(Password))) {
+            editTextConfirmPassword.setError("Your Password and Confirm Password does not match");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+
         if(Mobile.isEmpty()) {
             editTextMobile.setError("Mobile Number Required");
             editTextMobile.requestFocus();
             return;
         }
         if(!Patterns.PHONE.matcher(Mobile).matches()){
-            editTextEmail.setError("Please provide valid Mobile Number");
-            editTextEmail.requestFocus();
+            editTextMobile.setError("Please provide valid Mobile Number");
+            editTextMobile.requestFocus();
             return;
         }
 
@@ -120,7 +159,7 @@ public class User_registration extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user = new User(Fname, Lname, Email, Mobile, Password);
+                            User user = new User(Fname, Lname, Email, Mobile, Password, conf_Password);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

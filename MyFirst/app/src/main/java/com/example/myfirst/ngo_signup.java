@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +31,9 @@ public class ngo_signup extends AppCompatActivity implements View.OnClickListene
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+
+    private Button continue_as_user;
+    private CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,22 @@ public class ngo_signup extends AppCompatActivity implements View.OnClickListene
 
         forgotPassword = (TextView) findViewById(R.id.ForgotPassword);
         forgotPassword.setOnClickListener(this);
+
+        continue_as_user = (Button) findViewById(R.id.user_Signin);
+        continue_as_user.setOnClickListener(this);
+
+        checkbox = findViewById(R.id.Show);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
     }
 
     @Override
@@ -63,6 +86,10 @@ public class ngo_signup extends AppCompatActivity implements View.OnClickListene
 
             case R.id.ForgotPassword: // id name
                 startActivity(new Intent(this, ngoForgotPassword.class));
+                break;
+
+            case R.id.user_Signin:
+                startActivity(new Intent(ngo_signup.this, MainActivity.class));
                 break;
         }
     }
@@ -105,7 +132,7 @@ public class ngo_signup extends AppCompatActivity implements View.OnClickListene
 
                     if(ngo.isEmailVerified()) {
                         // Redirect to NGO profile
-                        startActivity(new Intent(ngo_signup.this, ngoProfileActivity.class));
+                        startActivity(new Intent(ngo_signup.this, ngo_Main_Page.class));
                         progressBar.setVisibility(View.GONE);
                     }else {
                         ngo.sendEmailVerification();
