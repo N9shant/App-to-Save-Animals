@@ -11,10 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class user_Main_Page extends AppCompatActivity {
+public class user_Main_Page extends AppCompatActivity implements View.OnClickListener {
+
+    Button add_post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +53,18 @@ public class user_Main_Page extends AppCompatActivity {
                 return false;
             }
         });
+
+        add_post = (Button) findViewById(R.id.Add_post);
+        add_post.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.Add_post:
+                startActivity(new Intent(this, Create_Post.class));
+                break;
+        }
     }
 }
