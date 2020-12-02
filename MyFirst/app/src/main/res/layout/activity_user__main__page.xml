@@ -61,6 +61,28 @@
         android:textSize="25sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginTop="80dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/Add_post"
+        android:layout_above="@+id/user_bottom_nav"
+        android:layout_marginTop="5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="590dp"
+                android:layout_below="@+id/Add_post"
+                android:layout_marginTop="5dp"
+                android:layout_above="@+id/user_bottom_nav">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

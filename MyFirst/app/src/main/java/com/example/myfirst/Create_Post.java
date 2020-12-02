@@ -288,11 +288,7 @@ public class Create_Post extends AppCompatActivity {
             selectedUri = data.getData();
             Picasso.get().load(selectedUri).into(imageView);
 
-
-
         }
-
-
     }
 
     private String getFileExt(Uri uri) {
@@ -432,9 +428,10 @@ public class Create_Post extends AppCompatActivity {
                                     taskSnapshot.getUploadSessionUri().toString());
 
                             String uploadId = databaseReference.push().getKey();
-                            databaseReference.child(uploadId).setValue(post);
+                            databaseReference.child(uploadId).push().setValue(post);
 
                             progressBar.setVisibility(View.GONE);
+//                            startActivity(new Intent(Create_Post.this, user_Main_Page.class));
 
                         }
                     })
