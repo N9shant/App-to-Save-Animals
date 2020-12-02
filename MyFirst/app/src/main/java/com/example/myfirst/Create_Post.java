@@ -79,8 +79,11 @@ public class Create_Post extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__post);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
-        storageReferance = FirebaseStorage.getInstance().getReference().child("Posts");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(currentuid);
+        storageReferance = FirebaseStorage.getInstance().getReference().child("Posts").child(currentuid);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -114,8 +117,7 @@ public class Create_Post extends AppCompatActivity {
         });
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid = user.getUid();
+
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
