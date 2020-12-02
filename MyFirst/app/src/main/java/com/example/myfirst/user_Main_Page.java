@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,16 +22,28 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class user_Main_Page extends AppCompatActivity implements View.OnClickListener {
 
     Button add_post;
 
     RecyclerView recyclerView;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference reference;
+//    FirebaseDatabase firebaseDatabase;
+    private DatabaseReference reference;
+
+    private ArrayList<Post> postList;
+
+    private RecyclerAdapter recyclerAdapter;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +54,33 @@ public class user_Main_Page extends AppCompatActivity implements View.OnClickLis
         // To retrive post data
 
         recyclerView = findViewById(R.id.recyclerview);
+
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid = user.getUid();
+        // ArrayList
+        postList = new ArrayList<>();
+
+        // Clear List
+        ClearALL();
+
+        // Get Data method
+        GetDataFromFirebase();
 
 
-        reference = firebaseDatabase.getReference("Posts").child(currentuid);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String currentuid = user.getUid();
+//
+//
+//        reference = firebaseDatabase.getReference("Posts").child(currentuid);
 
 
 
@@ -88,32 +118,81 @@ public class user_Main_Page extends AppCompatActivity implements View.OnClickLis
         add_post.setOnClickListener(this);
     }
 
+    private void GetDataFromFirebase() {
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String currentuid = user.getUid();
 
-        FirebaseRecyclerAdapter<Post, ViewHolder>firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<Post, ViewHolder>(
+        Query query = reference.child("Posts").child(currentuid);
 
-                        Post.class,
-                        R.layout.post_retrive,
-                        ViewHolder.class,
-                        reference
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ClearALL();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Post post = new Post();
 
-                ) {
+                    post.setSelectedUri(snapshot.child("selectedUri").getValue().toString());
+                    post.setDescription(snapshot.child("Description").getValue().toString());
+                    post.setUrgency_level(snapshot.child("Urgency_level").getValue().toString());
+                    post.setSelect_NGO(snapshot.child("Select_NGO").getValue().toString());
+                    post.setPost_Type(snapshot.child("Post_Type").getValue().toString());
+                    post.setAnimal_Category(snapshot.child("Animal_Category").getValue().toString());
+                    post.setAddress(snapshot.child("Address").getValue().toString());
 
+                    postList.add(post);
+                }
 
-                    @Override
-                    protected void populateViewHolder(ViewHolder viewHolder, Post post, int i) {
+                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), postList);
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerAdapter.notifyDataSetChanged();
+            }
 
-                        viewHolder.setdetails(getApplicationContext(), Post.getDescription(), Post.getUrgency_level(), Post.getSelect_NGO(), Post.getPost_Type(), Post.getAnimal_Category(), Post.getAddress(), Post.getSelectedUri());
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                };
-
-        recyclerView.setAdapter(firebaseRecyclerAdapter);
+            }
+        });
     }
+
+    private void ClearALL(){
+        if(postList != null) {
+            postList.clear();
+
+            if(recyclerAdapter != null) {
+                recyclerAdapter.notifyDataSetChanged();
+            }
+        }
+
+        postList = new ArrayList<>();
+    }
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        FirebaseRecyclerAdapter<Post, ViewHolder>firebaseRecyclerAdapter =
+//                new FirebaseRecyclerAdapter<Post, ViewHolder>(
+//
+//                        Post.class,
+//                        R.layout.post_retrive,
+//                        ViewHolder.class,
+//                        reference
+//
+//                ) {
+//
+//
+//                    @Override
+//                    protected void populateViewHolder(ViewHolder viewHolder, Post post, int i) {
+//
+//                        viewHolder.setdetails(getApplicationContext(), Post.getDescription(), Post.getUrgency_level(), Post.getSelect_NGO(), Post.getPost_Type(), Post.getAnimal_Category(), Post.getAddress(), Post.getSelectedUri());
+//
+//                    }
+//                };
+//
+//        recyclerView.setAdapter(firebaseRecyclerAdapter);
+//    }
 
     @Override
     public void onClick(View view) {

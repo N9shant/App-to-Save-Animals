@@ -428,7 +428,8 @@ public class Create_Post extends AppCompatActivity {
                                     taskSnapshot.getUploadSessionUri().toString());
 
                             String uploadId = databaseReference.push().getKey();
-                            databaseReference.child(uploadId).push().setValue(post);
+                            databaseReference.child(uploadId).setValue(post);
+//                            databaseReference.child(uploadId).push().setValue(post);
 
                             progressBar.setVisibility(View.GONE);
 //                            startActivity(new Intent(Create_Post.this, user_Main_Page.class));
@@ -444,7 +445,8 @@ public class Create_Post extends AppCompatActivity {
                     });
 
         }else {
-            Toast.makeText(Create_Post.this, "No File Selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Create_Post.this, "Select an Image", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
         }
 
 

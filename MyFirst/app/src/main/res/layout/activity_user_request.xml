@@ -10,11 +10,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="USER Requests"
-        android:textSize="56sp"
+        android:text="Requests"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

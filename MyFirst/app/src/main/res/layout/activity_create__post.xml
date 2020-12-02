@@ -197,12 +197,15 @@
 
     <ImageView
         android:id="@+id/Post_Image"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/Address"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
     <Button
         android:id="@+id/Select_Image"
